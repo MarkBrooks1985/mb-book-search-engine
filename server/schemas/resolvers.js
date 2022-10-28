@@ -1,9 +1,11 @@
-const { Tech, Matchup } = require('../models');
+const { User } = require("../models");
+const { AuthenticationErorr } = require("apollo-server-express");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    tech: async () => {
-      return Tech.find({});
+    user: async () => {
+      return User.find({});
     },
     matchups: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
