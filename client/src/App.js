@@ -7,7 +7,7 @@ import SearchBooks from "./pages/SearchBooks";
 import SavedBooks from "./pages/SavedBooks";
 import Navbar from "./components/Navbar";
 
-const client = newApolloClient({
+const client = new ApolloClient({
   request: (operation) => {
     const token = localStorage.getItem("id_token");
 
@@ -23,19 +23,21 @@ const client = newApolloClient({
 
 function App() {
   return (
-    <Router>
-      <>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<SearchBooks />} />
-          <Route path="/saved" element={<SavedBooks />} />
-          <Route
-            path="*"
-            element={<h1 className="display-2">Wrong page!</h1>}
-          />
-        </Routes>
-      </>
-    </Router>
+    <ApolloProvider client={client}>
+      <Router>
+        <>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<SearchBooks />} />
+            <Route path="/saved" element={<SavedBooks />} />
+            <Route
+              path="*"
+              element={<h1 className="display-2">Wrong page!</h1>}
+            />
+          </Routes>
+        </>
+      </Router>
+    </ApolloProvider>
   );
 }
 
